@@ -17,6 +17,14 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
+  image: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    required: true
+  },
 });
 
 module.exports = model('Post', postSchema); // Post represents the posts DB collection
