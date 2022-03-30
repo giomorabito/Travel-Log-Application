@@ -2,37 +2,43 @@ const{ buildSchema } = require('graphql');
 
 const schema =  buildSchema(`
 
-scalar Date
-
 type Post { 
   id: ID!
+  createdAt: String!
+  userId: String!
+  likes: [Like]!
+  likeCount: Int!
+  name: String!
   title: String!
   description: String!
-  rating: Int!
+  rating: String!
   location: String!
   image: String!
-  createdAt: Date!
 }
 input PostInput { 
   title: String!
   description: String!
-  rating: Int!
+  rating: String!
   location: String!
   image: String!
-  createdAt: Date!
 }
 type User { 
-  id: ID!
+  _id: ID!
   email: String!
-  username: String!
   token: String!
+  name: String!
   createdAt: String!
 }
 input RegisterInput{
-  username: String!
+  name: String!
+  email: String!
   password: String!
   confirmPassword: String!
-  email: String!
+}
+type Like {
+  id: ID!
+  createdAt: String!
+  userId: String!
 }
 type Query { 
   post(id: ID!): Post
@@ -40,9 +46,10 @@ type Query {
   user(id: ID!): User
 }
 type Mutation { 
-  createPost(postInput: PostInput): Post
-  deletePost(id: ID!): Post
+  createPost(postInput: PostInput): Post!
+  deletePost(postId: ID!): String!
   updatePost(id: ID!, postInput: PostInput): Post!
+  likePost(postId: ID!): Post!
   register(registerInput: RegisterInput): User!
   login(email: String!, password: String!): User!
 }

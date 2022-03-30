@@ -1,17 +1,11 @@
 const express = require('express'); 
-const { ApolloServer, gql } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
-
-const MONGODB = 'DB HERE'; 
-
+const { MONGODB } = require('./config.js');
 const schema = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
-const PORT = 4000; 
-   
-
-const server = new ApolloServer({ schema, resolvers });
+const PORT = 4000;
 
 mongoose.connect(MONGODB); 
 mongoose.connection.once('open', function() { 
@@ -23,24 +17,18 @@ mongoose.connection.on('error', function(error) {
 
 const app = express(); 
 app.use(cors());
-
-let apolloServer = null;
-async function startServer() {
-    apolloServer = new ApolloServer({
-        schema,
-        resolvers,
-    });
-    await apolloServer.start();
-    apolloServer.applyMiddleware({ app });
-}
-startServer();
-
-app.use("/graphql", graphqlHTTP({
-  schema: schema,
-  rootValue: resolvers, 
-  graphiql: true
-}));
-
+app.use(
+  '/graphql',
+  graphqlHTTP((req) => { // req, res, graphQLParams if issues
+    return {
+      schema,
+      rootValue: resolvers,
+      context: {
+        authorizationHeader: req.headers.authorization,
+      }
+    }
+  })
+);
 app.listen(PORT, function() { 
   console.log(`Server listening on port ${PORT}.`);
 });

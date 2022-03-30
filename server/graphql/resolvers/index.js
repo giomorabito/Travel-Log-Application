@@ -1,10 +1,9 @@
 const postResolver = require('./post');
 const userResolver = require('./user');
 
-module.exports = {
-    Mutation: {
-        ...userResolver.Mutation
-    },
+const resolvers = {
+    ...userResolver,
     ...postResolver
-    
-};
+}
+
+module.exports = resolvers;

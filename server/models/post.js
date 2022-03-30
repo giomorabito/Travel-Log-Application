@@ -1,6 +1,29 @@
 const { Schema, model } = require('mongoose');
 
 const postSchema = new Schema({ 
+  createdAt: {
+    type: String,
+    required: true
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    refs: 'users',
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  likes: [
+    {
+      userId: String,
+      createdAt: String
+    }
+  ],
+  likeCount: {
+    type: Number,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -10,7 +33,7 @@ const postSchema = new Schema({
     required: true
   },
   rating: {
-    type: Number,
+    type: String,
     required: true
   },
   location: {
@@ -19,10 +42,6 @@ const postSchema = new Schema({
   },
   image: {
     type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
     required: true
   },
 });
