@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Query } from 'react-apollo';
 import { GET_USER_BOOKMARKS } from '../../graphql/postQueries';
 import Grid from '@mui/material/Grid';

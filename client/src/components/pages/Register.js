@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'; 
+import React, { useContext} from 'react'; 
 import Button from '@mui/material/Button';
 import { useMutation } from 'react-apollo';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +15,6 @@ import { useForm } from '../../util/hooks';
 function Register(props) { 
   document.title = "Register your account | Pausing Moments";
   const context = useContext(AuthContext);
-  const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: '',
@@ -24,7 +23,7 @@ function Register(props) {
     confirmPassword: ''
   });
 
-  const [addUser, { loading }] = useMutation(REGISTER_USER, {
+  const [addUser] = useMutation(REGISTER_USER, {
     update(
         _,
         {

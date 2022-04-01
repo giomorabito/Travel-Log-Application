@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { useMutation } from 'react-apollo';
 import { CREATE_POST } from '../../graphql/postQueries'; 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,12 +9,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useForm } from '../../util/hooks';
-import { AuthContext } from '../../util/auth';
 import { useHistory } from "react-router-dom";
 
 function PostAdd() {
   let history = useHistory();
-  const { user } = useContext(AuthContext);
 
   function handleCancel(id) {
     history.push(`/posts/`);
@@ -30,7 +28,7 @@ function PostAdd() {
     image: '',
   });
 
-  const [createPost, { error }] = useMutation(CREATE_POST, {
+  const [createPost] = useMutation(CREATE_POST, {
     variables: values,
     update(){
       history.push('/posts');
