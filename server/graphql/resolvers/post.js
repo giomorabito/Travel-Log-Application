@@ -6,6 +6,18 @@ const { UserInputError } = require('apollo-server-errors');
     const posts = await Post.find({}).sort({createdAt: -1})
     return posts;
   }
+
+  async function userPosts(args, context) {
+    const user = checkAuth(context);
+    const posts = await Post.find({userId: user.id}).sort({createdAt: -1})
+    return posts;
+  }
+
+  async function userBookmarks(args, context) {
+    const user = checkAuth(context);
+    const posts = await Post.find({likes: {$elemMatch: {userId: user.id}}})
+    return posts;
+  }
   
   async function post(args) {
     const post = await Post.findById(args.id)
@@ -77,5 +89,5 @@ const { UserInputError } = require('apollo-server-errors');
     else throw new UserInputError('Post not found');
   }
   
-  module.exports = { posts, post, createPost, deletePost, updatePost, likePost,
+  module.exports = { posts, post, userPosts, userBookmarks, createPost, deletePost, updatePost, likePost,
 }

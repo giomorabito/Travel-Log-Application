@@ -1,28 +1,22 @@
 import React, {useContext} from 'react';
-import { Link } from 'react-router-dom';
-import { Query, Mutation } from 'react-apollo';
-import { GET_POST, DELETE_POST, GET_POSTS } from '../../graphql/postQueries';
+import { Query} from 'react-apollo';
+import { GET_POST } from '../../graphql/postQueries';
 import convertDate from '../actions/ConvertDate';
-import randomColor from '../actions/RandomColor';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Rating from '@mui/material/Rating';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { IconButton } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/Favorite';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import ShareIcon from '@mui/icons-material/Share';
-import { Button } from '@mui/material';
 import BookmarkButton from '../elements/BookmarkButton';
 import DeleteButton from '../elements/DeleteButton';
 import ShareButton from '../elements/ShareButton';
+import EditButton from '../elements/EditButton';
 import { AuthContext } from '../../util/auth';
 
 function PostInfo(props) {
   const { user } = useContext(AuthContext);
-  const classes = useStyles();
   return (
     <Query query={GET_POST} variables={{ id: props.match.params._id }}>  
       {function({ loading, error, data }) {
@@ -32,6 +26,7 @@ function PostInfo(props) {
         const id = post.id;
         const likes = post.likes;
         const likeCount = post.likeCount;
+        document.title = `${post.title} | Pausing Moments`;
         return (
         <Grid container justifyContent="center" direction="column" alignItems="center" marginTop={3}>
             <Box component="img" 
@@ -49,6 +44,7 @@ function PostInfo(props) {
               <Typography variant="h5" component="div" align="center" marginLeft={1.8}>
                 {post.title}
                 {user && user.name === post.name && <DeleteButton postId={id} /> || <BookmarkButton user={user} post={{ id, likes, likeCount }} />}
+                {user && user.name === post.name && <EditButton postId={id} />}
               </Typography>
               <Typography variant="h6" component="div" align="center">
                 Posted by: {post.name}
@@ -75,9 +71,5 @@ function PostInfo(props) {
     </Query>
   )
 }
-
-const useStyles = makeStyles((theme) => ({
-  
-}))
 
 export default PostInfo

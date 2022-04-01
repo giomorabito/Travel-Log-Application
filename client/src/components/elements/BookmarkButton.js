@@ -38,7 +38,7 @@ function BookmarkButton({user, post:{id, likeCount, likes}}){
     );
 
     return(
-        <div onClick={likePost} style={{display: "inline"}}>
+        <div key={id} onClick={likePost} style={{display: "inline"}}>
             {likeButton}
         </div>
     );

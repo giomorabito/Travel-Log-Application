@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../util/auth';
+import MyAccount from './MyAccount';
 
 const Navigation = () => {
   const classes = useStyles();
@@ -18,8 +19,10 @@ const Navigation = () => {
             <Typography fontFamily="DM Serif Display, serif" variant="h5" noWrap sx={{ flexGrow: 1 }}>
                 <Link className={classes.link} to='/'>Pausing Moments</Link>
             </Typography>
-            <Link style={{paddingRight:'30px'}} className={classes.link} to='/addpost'>Add Post</Link>
+            
+            <Link style={{paddingRight:'30px'}} className={classes.link} to='/newpost'>New Post</Link>
             <Link style={{paddingRight:'30px'}} className={classes.link} to='/posts'>Posts</Link>
+            <MyAccount />
             <Button onClick={logout} style={{backgroundColor:'white', paddingLeft:'15px', paddingRight:'15px', fontWeight:'bold', color: '#d47863'}}>
                 Logout
             </Button>
@@ -52,7 +55,6 @@ const useStyles = makeStyles({
     },
     link: {
         textDecoration: 'none',
-        fontWeight: 'bold',
         color: 'white',
         transition: '0.3s',
         '&:hover': {

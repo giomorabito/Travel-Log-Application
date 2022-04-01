@@ -15,6 +15,7 @@ import { LOGIN_USER } from '../../graphql/postQueries';
 import { useForm } from '../../util/hooks';
 
 function LogIn(props) { 
+  document.title = "Log In | Pausing Moments";
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 

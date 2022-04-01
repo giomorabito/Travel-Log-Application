@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useMutation } from 'react-apollo';
 import { CREATE_POST } from '../../graphql/postQueries'; 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,6 +15,12 @@ import { useHistory } from "react-router-dom";
 function PostAdd() {
   let history = useHistory();
   const { user } = useContext(AuthContext);
+
+  function handleCancel(id) {
+    history.push(`/posts/`);
+  }
+
+  document.title = "Create a post | Pausing Moments";
 
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
     title: '',
@@ -41,7 +47,8 @@ function PostAdd() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
+            marginBottom: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -120,6 +127,14 @@ function PostAdd() {
             >
               Post
             </Button>
+            <Button
+                        fullWidth
+                        variant="contained"
+                        style={{backgroundColor:"#adadad"}}
+                        onClick={function() { handleCancel() }}
+                      >
+                        Cancel
+                      </Button>
             <Grid container justifyContent="flex-end">
             </Grid>
           </Box>

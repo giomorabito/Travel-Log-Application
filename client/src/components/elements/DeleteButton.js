@@ -33,7 +33,7 @@ function DeleteButton({user, postId}){
     });
 
     return(
-        <div style={{display: "inline"}}>
+        <div key={postId} style={{display: "inline"}}>
             <IconButton aria-label="delete" onClick={handleClickOpen}>
                 <DeleteOutlineIcon />
             </IconButton>

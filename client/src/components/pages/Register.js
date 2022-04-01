@@ -13,6 +13,7 @@ import { REGISTER_USER } from '../../graphql/postQueries';
 import { useForm } from '../../util/hooks';
 
 function Register(props) { 
+  document.title = "Register your account | Pausing Moments";
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 

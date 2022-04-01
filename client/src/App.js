@@ -19,7 +19,9 @@ import Register from './components/pages/Register';
 import { AuthProvider } from './util/auth';
 import AuthRoute from './util/AuthRoute';
 import PostAdd from './components/posts/PostAdd';
-//import PostEdit from './components/posts/PostEdit';
+import PostEdit from './components/posts/PostEdit';
+import BookmarkList from './components/posts/BookmarkList';
+import UserPostList from './components/posts/UserPostList';
 
 function App() {
   return (
@@ -41,8 +43,11 @@ function Main() {
   <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/posts" component={PostList} />
+        <Route exact path="/my_bookmarks" component={BookmarkList} />
+        <Route exact path="/my_posts" component={UserPostList} />
         <Route exact path="/posts/:_id" component={PostInfo} />
-        <Route exact path="/addpost" component={PostAdd} />
+        <Route exact path="/posts/:_id/edit" component={PostEdit} />
+        <Route exact path="/newpost" component={PostAdd} />
         <AuthRoute exact path="/login" component={LogIn} />
         <AuthRoute exact path="/register" component={Register} />
   </Switch>

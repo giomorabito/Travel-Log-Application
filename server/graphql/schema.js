@@ -41,6 +41,8 @@ type Like {
   userId: String!
 }
 type Query { 
+  userPosts: [Post]
+  userBookmarks: [Post]
   post(id: ID!): Post
   posts: [Post]
   user(id: ID!): User
